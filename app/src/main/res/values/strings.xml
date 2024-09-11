@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Dev Squad</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgotPassword">Frogot password?</string>
+    <string name="login">Login</string>
+    <string name="login_header">Login</string>
+    <string name="login_subtitle">"Enter your email and password "</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="sign_up">Sign up</string>
+    <string name="sign_up_header">Sign up</string>
+    <string name="sign_up_subtitle">Enter your informations</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="logo">Logo</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="register_fragment_label">Register fragment</string>
+    <string name="login_fragment_label">Login fragment</string>
+    <string name="don_t_have_an_account">Don\'t have an account</string>
 </resources>
