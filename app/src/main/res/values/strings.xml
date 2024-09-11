@@ -2,7 +2,7 @@
     <string name="app_name">Dev Squad</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="forgotPassword">Frogot password?</string>
+    <string name="forgotPassword">Forgot password?</string>
     <string name="login">Login</string>
     <string name="login_header">Login</string>
     <string name="login_subtitle">"Enter your email and password "</string>
@@ -14,11 +14,25 @@
 
     <string name="sign_up">Sign up</string>
     <string name="sign_up_header">Sign up</string>
-    <string name="sign_up_subtitle">Enter your informations</string>
+    <string name="sign_up_subtitle">Enter your information</string>
     <string name="confirm_password">Confirm password</string>
     <string name="logo">Logo</string>
     <string name="splash_screen">Splash Screen</string>
     <string name="register_fragment_label">Register fragment</string>
     <string name="login_fragment_label">Login fragment</string>
     <string name="don_t_have_an_account">Don\'t have an account</string>
+    <string name="home">Home</string>
+    <string name="about">About</string>
+    <string name="favourite">Favourite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_mate">Recipe Mate</string>
+    <string name="search_for_foods">Search for Foods</string>
+    <string name="all_recipes">All recipes</string>
+    <string name="slash">/</string>
+    <string name="necessary_products">Necessary products</string>
+    <string name="personal_cabinet">Personal cabinet</string>
+    <string name="general_settings">General settings</string>
+    <string name="language">Language</string>
+    <string name="night_mode">Night Mode</string>
 </resources>
