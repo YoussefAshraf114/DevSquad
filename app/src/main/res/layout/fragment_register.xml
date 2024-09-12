@@ -40,6 +40,7 @@
             style="@style/login_subtitle" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -53,43 +54,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            android:layout_marginBottom="@dimen/auth_item_margin">
 
             <EditText
+                android:id="@+id/password_field"
                 android:layout_width="match_parent"
                 android:autofillHints=""
                 android:hint="@string/password"
                 android:layout_height="wrap_content"
-                android:id="@+id/confirm_password_field"
                 android:inputType="textPassword"
-                android:background="@color/white"
-
-                android:layout_marginBottom="@dimen/auth_item_margin"/>
+                android:background="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirm_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            android:layout_marginBottom="@dimen/auth_item_margin">
             <EditText
+                android:id="@+id/confirm_password_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:hint="@string/confirm_password"
-                android:id="@+id/password_field"
                 android:inputType="textPassword"
-                android:background="@color/white"
-                android:layout_marginBottom="@dimen/auth_item_margin"/>
+                android:background="@color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

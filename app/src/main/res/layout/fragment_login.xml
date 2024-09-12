@@ -27,16 +27,26 @@
         android:orientation="vertical"
         android:layout_margin="@dimen/auth_item_margin"
         android:layout_marginBottom="0dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_header"
             style="@style/login_header"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_subtitle"
             style="@style/login_subtitle" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:hintEnabled="false"
+            android:layout_marginBottom="@dimen/auth_item_margin">
 
                  <EditText
                      android:padding="16dp"
@@ -46,10 +56,11 @@
                      android:layout_height="wrap_content"
                      android:id="@+id/email_field"
                      android:inputType="textEmailAddress"
-                     android:background="@color/white"
-                     android:layout_marginBottom="@dimen/auth_item_margin"/>
+                     android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -65,8 +76,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/password_field"
                 android:inputType="textPassword"
-                android:background="@color/white"
-                android:layout_marginBottom="@dimen/auth_item_margin"/>
+                android:background="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -102,6 +112,7 @@
                 android:text="@string/sign_up"
                 android:id="@+id/sign_up_nav"/>
         </LinearLayout>
+
     </LinearLayout>
 
 
