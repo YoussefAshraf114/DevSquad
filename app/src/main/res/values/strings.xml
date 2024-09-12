@@ -2,7 +2,7 @@
     <string name="app_name">Dev Squad</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="forgotPassword">Frogot password?</string>
+    <string name="forgotPassword">Forgot password?</string>
     <string name="login">Login</string>
     <string name="login_header">Login</string>
     <string name="login_subtitle">"Enter your email and password "</string>

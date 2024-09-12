@@ -2,8 +2,6 @@ package com.example.devsquad.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.devsquad.R
@@ -18,7 +16,9 @@ class AuthActivity : AppCompatActivity() {
         findNavController(R.id.fragment_container)
     }
     private lateinit var binding: ActivityAuthBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
