@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="20dp"
+    android:layout_marginEnd="@dimen/home_margin"
+    android:layout_marginVertical="5dp"
+    android:elevation="4dp"
+    android:clickable="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:text="Lunch"
+        android:textSize="16sp"
+        android:padding="10sp"
+        android:background="@drawable/category_card_border"
+        android:gravity="center"
+        android:backgroundTint="@color/white"
+        />
+
+</androidx.cardview.widget.CardView>
