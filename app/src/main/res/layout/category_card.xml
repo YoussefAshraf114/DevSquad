@@ -11,13 +11,14 @@
     android:clickable="true">
 
     <TextView
+        android:id="@+id/category_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:text="Lunch"
         android:textSize="16sp"
         android:padding="10sp"
-        android:background="@drawable/category_card_border"
         android:gravity="center"
+        android:background="@drawable/category_card_border"
         android:backgroundTint="@color/white"
         />
 

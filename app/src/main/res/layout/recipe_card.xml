@@ -18,11 +18,10 @@
         android:layout_marginVertical="@dimen/home_margin">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/recipe_image"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:background="@drawable/recipe_card_corner"
-            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +35,8 @@
             android:layout_marginStart="@dimen/home_margin"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toTopOf="@id/image"
+            app:layout_constraintStart_toEndOf="@id/recipe_image"
+            app:layout_constraintTop_toTopOf="@id/recipe_image"
             tools:text="Name" />
 
         <TextView
@@ -78,8 +77,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image"
-            app:layout_constraintBottom_toBottomOf="@id/image"
+            app:layout_constraintTop_toTopOf="@id/recipe_image"
+            app:layout_constraintBottom_toBottomOf="@id/recipe_image"
             android:src="@drawable/icon_star"/>
 
 

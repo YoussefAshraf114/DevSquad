@@ -1,4 +1,4 @@
-package com.example.myapp8
+package com.example.devsquad
 
 import android.app.Application
 import android.content.Context
