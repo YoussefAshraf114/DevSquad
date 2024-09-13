@@ -9,6 +9,7 @@
     android:layout_marginEnd="@dimen/home_margin"
     android:layout_marginVertical="5dp"
     android:elevation="4dp"
+    android:focusable="true"
     android:clickable="true">
 
     <TextView
