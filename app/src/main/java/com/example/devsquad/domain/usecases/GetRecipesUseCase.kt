@@ -3,9 +3,9 @@ package com.example.devsquad.domain.usecases
 import com.example.devsquad.domain.entity.Recipe
 import com.example.devsquad.domain.repo.RecipeRepo
 
-class GetRecipesByCategoryUseCase(private val recipeRepo: RecipeRepo, private val category: String) {
+class GetRecipesUseCase(private val recipeRepo: RecipeRepo) {
     suspend operator fun invoke(): List<Recipe> {
-        return recipeRepo.getRecipesByCategory(category)
+        return recipeRepo.getRecipes()
     }
 
 }
