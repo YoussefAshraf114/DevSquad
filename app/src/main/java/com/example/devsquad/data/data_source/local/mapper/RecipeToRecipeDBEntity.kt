@@ -51,7 +51,7 @@ fun Recipe.toRecipeDBEntity(): RecipeDBEntity {
         measure17 = measure17,
         measure18 = measure18,
         measure19 = measure19,
-        measure20 = measure20
+        measure20 = measure20,
     )
 }
 

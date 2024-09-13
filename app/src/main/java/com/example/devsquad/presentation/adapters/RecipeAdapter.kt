@@ -3,6 +3,7 @@ package com.example.devsquad.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.example.devsquad.domain.entity.Recipe
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     var onItemClick: ((Recipe) -> Unit)? = null
+    var onLikeClick: ((CheckBox) -> Unit)? = null
 
     val recipes: MutableList<Recipe> = mutableListOf()
 
@@ -26,9 +28,9 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.bind(recipes[position])
-//        holder.itemView.setOnClickListener {
-//            onItemClick?.invoke(recipes[position])
-//        }
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(recipes[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,7 +44,6 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
             title.text = recipe.title
             Glide.with(itemView.context).load(recipe.image).into(recipeImage)
         }
-
     }
 
     fun setRecipes(data: List<Recipe>) {

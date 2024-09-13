@@ -31,6 +31,11 @@ class AboutFragment : Fragment() {
         binding.nightModeSwitch.setOnClickListener {
             Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show()
         }
+
+        binding.logOutButton.setOnClickListener {
+            Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show()
+        }
+
         return binding.root
     }
 

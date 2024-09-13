@@ -35,4 +35,6 @@
     <string name="general_settings">General settings</string>
     <string name="language">Language</string>
     <string name="night_mode">Night Mode</string>
+    <string name="tap_for_details">Tap for Details</string>
+    <string name="log_out">Log out</string>
 </resources>

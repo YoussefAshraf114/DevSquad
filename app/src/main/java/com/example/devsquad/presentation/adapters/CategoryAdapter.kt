@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.devsquad.R
 import com.example.devsquad.domain.entity.Category
@@ -26,6 +28,10 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         position: Int,
     ) {
         holder.bind(data[position])
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(data[position])
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -37,10 +43,11 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         fun bind(category: Category) {
             title.text = category.categoryName
         }
-    }
 
+    }
     fun setCategories(categories: List<Category>) {
         data.clear()
+        data.add(Category("0", "All Recipes", "", ""))
         data.addAll(categories)
         notifyDataSetChanged()
     }

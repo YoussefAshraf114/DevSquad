@@ -1,5 +1,8 @@
 package com.example.devsquad.domain.entity
 
+import android.os.Parcel
+import android.os.Parcelable
+
 data class Recipe(
     val idMeal: String,
     val title: String,
@@ -45,6 +48,5 @@ data class Recipe(
     val measure17: String?,
     val measure18: String?,
     val measure19: String?,
-    val measure20: String?,
-
+    val measure20: String?
 )

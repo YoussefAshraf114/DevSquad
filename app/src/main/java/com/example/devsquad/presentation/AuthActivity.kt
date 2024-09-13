@@ -28,8 +28,8 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val authViewModel : AuthViewModel by lazy{
-        AuthViewModel(checkAuthorizationUseCase = CheckAuthorizationUseCase(UserAuthRepositoryImp(sharedPreferences)))
-    }
+            AuthViewModel(checkAuthorizationUseCase = CheckAuthorizationUseCase(UserAuthRepositoryImp(sharedPreferences)))
+        }
 
         authViewModel.checkAuthorization()
         if (authViewModel.isAuth.value == true){

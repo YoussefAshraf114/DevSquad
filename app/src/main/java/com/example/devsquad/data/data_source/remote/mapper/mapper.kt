@@ -52,7 +52,7 @@ fun RecipeById.toRecipe(): Recipe {
         measure17 = measure17,
         measure18 = measure18,
         measure19 = measure19,
-        measure20 = measure20
+        measure20 = measure20,
     )
 }
 

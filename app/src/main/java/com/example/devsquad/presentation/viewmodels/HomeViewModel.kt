@@ -19,10 +19,6 @@ class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase = Get
     val _recipes = MutableLiveData<List<Recipe>>()
     val recipes: LiveData<List<Recipe>> = _recipes
 
-//    val recipesByCategory: Map<String, List<Recipe>> by lazy {
-//        listOf("chicken", "beef", "pork", "lamb", "fish")
-//            .associateWith { getRecipesByCategory(it) }
-//    }
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -32,7 +28,6 @@ class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase = Get
 
     init {
         getCategories()
-        getRecipesByCategory("chicken")
     }
 
     fun getCategories() {
@@ -50,13 +45,28 @@ class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase = Get
 
     fun getRecipesByCategory(category: String) {
         viewModelScope.launch {
-            val getRecipesByCategoryUseCase = GetRecipesByCategoryUseCase(RecipeRepoImpl(), category)
-            _isLoading.value = true
-            try {
-                _recipes.value = getRecipesByCategoryUseCase()
-            } catch (e: Exception) {
-                _error.value = e
+            if (category == "All Recipes") {
+                val allRecipes: MutableList<Recipe> = mutableListOf()
+                for (item in _categoryList.value!!) {
+                    val getRecipes = GetRecipesByCategoryUseCase(RecipeRepoImpl(), item.categoryName)
+                    allRecipes.addAll(getRecipes())
+                }
+                _recipes.value = allRecipes
+                _isLoading.value = true
+                return@launch
+            } else {
+                _isLoading.value = true
+                try {
+                    val getRecipesByCategoryUseCase = GetRecipesByCategoryUseCase(RecipeRepoImpl(), category)
+                    _recipes.value = getRecipesByCategoryUseCase()
+                } catch (e: Exception) {
+                    _error.value = e
+                }
             }
         }
+    }
+
+    fun getRecipeById(id: String): Recipe? {
+        return _recipes.value?.find { it.idMeal == id }
     }
 }
