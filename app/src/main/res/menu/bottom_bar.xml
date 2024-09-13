@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/HomeFragment"
         android:icon="@drawable/icon_home"
         android:title="@string/home" />
 
     <item
-        android:id="@+id/about"
+        android:id="@+id/AboutFragment"
         android:icon="@drawable/icon_about"
         android:title="@string/about" />
 
     <item
-        android:id="@+id/favourite"
+        android:id="@+id/FavouriteFragment"
         android:icon="@drawable/icon_favourite"
         android:title="@string/favourite"/>
 </menu>
