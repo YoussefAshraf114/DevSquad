@@ -126,10 +126,11 @@ class RegisterFragment : Fragment(), View.OnFocusChangeListener{
 
         binding.registerNext.setOnClickListener{
             isValidEmail()
+            isValidPassword()
             isValidPasswordConfirmPassword()
             val email = binding.emailField.text.toString()
             val password = binding.passwordField.text.toString()
-            if (isValidPassword() && isValidPassword()){
+            if (isValidEmail() && isValidPassword() && isValidPasswordConfirmPassword()){
                 val user = User(email,password)
                 authViewModel.signUp(user)
                 parentFragmentManager.beginTransaction()
@@ -139,7 +140,6 @@ class RegisterFragment : Fragment(), View.OnFocusChangeListener{
                         "loginFragment")
                     .commit()
             }
-            Log.i("Test","${sharedPreferences?.getString("email","")}")
         }
 
         return binding.root

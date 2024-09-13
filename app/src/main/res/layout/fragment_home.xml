@@ -36,7 +36,7 @@
     <LinearLayout
         android:id="@+id/categories"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/search_view"
         app:layout_constraintStart_toStartOf="@id/search_view"
         app:layout_constraintEnd_toEndOf="@id/search_view"
@@ -48,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/all_recipes"
+            android:gravity="center"
             android:background="@drawable/category_card_border"
             android:backgroundTint="@color/white"
             android:textSize="16sp"

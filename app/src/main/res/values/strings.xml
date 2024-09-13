@@ -35,4 +35,6 @@
     <string name="general_settings">General settings</string>
     <string name="language">Language</string>
     <string name="night_mode">Night Mode</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="like">like</string>
 </resources>

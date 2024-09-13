@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/home_margin"
-    android:layout_marginVertical="15dp"
+    android:layout_marginVertical="10dp"
     android:backgroundTint="@color/white"
     android:elevation="4dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="@dimen/card_corner_r"
     tools:visibility="visible">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,26 +17,40 @@
         android:layout_marginHorizontal="@dimen/home_margin"
         android:layout_marginVertical="@dimen/home_margin">
 
-        <ImageView
-            android:id="@+id/recipe_image"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:background="@drawable/recipe_card_corner"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/card_corner_r"
+            android:id="@+id/recipe_image_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/recipe_image"
+                android:layout_width="@dimen/card_image_width"
+                android:layout_height="@dimen/card_image_height"
+                android:background="@drawable/recipe_card_corner"
+                android:contentDescription="@string/recipe_image"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/home_margin"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/recipe_image"
-            app:layout_constraintTop_toTopOf="@id/recipe_image"
+            app:layout_constraintStart_toEndOf="@id/recipe_image_card"
+            app:layout_constraintEnd_toStartOf="@id/like"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="@id/recipe_image_card"
             tools:text="Name" />
 
         <TextView
@@ -63,12 +77,14 @@
             app:layout_constraintTop_toTopOf="@id/num1" />
         
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/necessary_products"
+            android:padding="4dp"
             app:layout_constraintStart_toEndOf="@id/num2"
-            app:layout_constraintTop_toTopOf="@id/num1"
-            android:layout_marginStart="15dp"
+            app:layout_constraintEnd_toStartOf="@id/like"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintBaseline_toBaselineOf="@id/num1"
             android:textColor="@color/gray_dark"/>
 
         <ImageButton
@@ -76,9 +92,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/like"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recipe_image"
-            app:layout_constraintBottom_toBottomOf="@id/recipe_image"
+            app:layout_constraintTop_toTopOf="@id/recipe_image_card"
+            app:layout_constraintBottom_toBottomOf="@id/recipe_image_card"
             android:src="@drawable/icon_star"/>
 
 
