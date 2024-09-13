@@ -17,20 +17,6 @@ class RecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.bottomNavigation.setupWithNavController(findNavController(R.id.fragment_container))
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> {
-                    findNavController(R.id.fragment_container).navigate(R.id.homeFragment)
-                }
-                R.id.favourite -> {
-                    findNavController(R.id.fragment_container).navigate(R.id.favouriteFragment)
-                }
-                R.id.about -> {
-                    findNavController(R.id.fragment_container).navigate(R.id.aboutFragment)
-                }
-            }
-                true
-        }
 
     }
 }

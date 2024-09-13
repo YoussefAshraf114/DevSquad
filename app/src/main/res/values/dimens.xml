@@ -3,4 +3,5 @@
     <dimen name="auth_item_margin">20dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="home_margin">20dp</dimen>
+    <dimen name="input_field_radius">13</dimen>
 </resources>

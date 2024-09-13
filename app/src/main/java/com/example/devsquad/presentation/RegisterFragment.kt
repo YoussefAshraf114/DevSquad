@@ -9,18 +9,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.example.devsquad.R
 import com.example.devsquad.databinding.FragmentRegisterBinding
+import com.example.devsquad.domain.model.User
+import com.example.devsquad.domain.repo.UserAuthRepositoryImp
+import com.example.devsquad.domain.usecases.SignUpUseCase
+import com.example.devsquad.presentation.viewmodels.AuthViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 
-class RegisterFragment : Fragment(), View.OnFocusChangeListener {
+class RegisterFragment : Fragment(), View.OnFocusChangeListener{
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-
 
     private fun isValidEmail(): Boolean {
         val email = binding.emailField.text.toString()
@@ -109,11 +113,35 @@ class RegisterFragment : Fragment(), View.OnFocusChangeListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        val sharedPreferences = context?.getSharedPreferences("SharedPref", MODE_PRIVATE)
+        val authViewModel : AuthViewModel by lazy{
+            AuthViewModel(
+                signUpUseCase = SignUpUseCase(UserAuthRepositoryImp(sharedPreferences))
+            )
+        }
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         binding.emailField.onFocusChangeListener = this
         binding.passwordField.onFocusChangeListener = this
         binding.confirmPasswordField.onFocusChangeListener = this
+
+        binding.registerNext.setOnClickListener{
+            isValidEmail()
+            isValidPasswordConfirmPassword()
+            val email = binding.emailField.text.toString()
+            val password = binding.passwordField.text.toString()
+            if (isValidPassword() && isValidPassword()){
+                val user = User(email,password)
+                authViewModel.signUp(user)
+                parentFragmentManager.beginTransaction()
+                    .add(
+                        R.id.fragment_container,
+                        LoginFragment(),
+                        "loginFragment")
+                    .commit()
+            }
+            Log.i("Test","${sharedPreferences?.getString("email","")}")
+        }
+
         return binding.root
 
     }

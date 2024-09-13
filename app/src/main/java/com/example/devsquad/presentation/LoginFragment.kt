@@ -1,30 +1,29 @@
 package com.example.devsquad.presentation
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.example.devsquad.R
 import com.example.devsquad.databinding.FragmentLoginBinding
+import com.example.devsquad.domain.model.User
+import com.example.devsquad.domain.repo.UserAuthRepositoryImp
+import com.example.devsquad.domain.usecases.LoginUseCase
 import com.example.devsquad.presentation.viewmodels.AuthViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class LoginFragment : Fragment() , View.OnKeyListener, View.OnFocusChangeListener, View.OnClickListener{
-    val authViewModel by lazy {
-        ViewModelProvider(this)[AuthViewModel::class.java]
-    }
+class LoginFragment : Fragment() ,View.OnFocusChangeListener{
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
 
     private fun isValidEmail(): Boolean {
         val email = binding.emailField.text.toString()
@@ -67,6 +66,7 @@ class LoginFragment : Fragment() , View.OnKeyListener, View.OnFocusChangeListene
         return errorMsg == null
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,6 +78,31 @@ class LoginFragment : Fragment() , View.OnKeyListener, View.OnFocusChangeListene
         binding.emailField.onFocusChangeListener = this
         binding.passwordField.onFocusChangeListener = this
 
+        val sharedPreferences = context?.getSharedPreferences("SharedPref", MODE_PRIVATE)
+
+        val authViewModel : AuthViewModel by lazy{
+            AuthViewModel(
+                loginUseCase = LoginUseCase(UserAuthRepositoryImp(sharedPreferences)))
+        }
+
+        binding.login.setOnClickListener{
+            val user = User(binding.emailField.text.toString(), binding.passwordField.text.toString())
+            if (isValidEmail() && isValidPassword()){
+                authViewModel.login(user)
+                if (authViewModel.isAuth.value == true){
+                        val intent = Intent(requireActivity(),RecipeActivity::class.java)
+                        startActivity(intent)
+                    requireActivity().finish()
+                    }else{
+                        binding.passwordLayout.apply {
+                            isErrorEnabled = true
+                            error = "Wrong email or password!"
+                        }
+                }
+
+            }
+        }
+
         binding.signUpNav.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .add(
@@ -87,17 +112,21 @@ class LoginFragment : Fragment() , View.OnKeyListener, View.OnFocusChangeListene
                 .addToBackStack(null)
                 .commit()
         }
+
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
 
-    override fun onKey(view: View?, keyCode: Int, event: KeyEvent?): Boolean {
-        TODO("Not yet implemented")
-    }
+
 
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
 
@@ -113,6 +142,7 @@ class LoginFragment : Fragment() , View.OnKeyListener, View.OnFocusChangeListene
                         isValidEmail()
                     }
                 }
+
                 R.id.password_field -> {
                     if (hasFocus){
                         binding.passwordField.setTextColor(Color.BLACK)
@@ -122,11 +152,10 @@ class LoginFragment : Fragment() , View.OnKeyListener, View.OnFocusChangeListene
                         isValidPassword()
                     }
                 }
+
             }
         }
     }
 
-    override fun onClick(view: View?) {
-        TODO("Not yet implemented")
-    }
+
 }
