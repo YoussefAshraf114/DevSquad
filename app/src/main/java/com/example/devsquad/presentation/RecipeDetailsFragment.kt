@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.VideoView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.devsquad.R
 
 class RecipeDetailsFragment : Fragment() {
 
@@ -16,7 +17,7 @@ class RecipeDetailsFragment : Fragment() {
     private lateinit var ingredientsRecyclerView: RecyclerView
     private lateinit var ingredientsAdapter: IngredientsAdapter
     private val ingredientsList = listOf(
-        Ingredient("Sheep's butt",R.drawable.ing_icon,"500g"),
+        Ingredient("Sheep's butt", R.drawable.ing_icon,"500g"),
         Ingredient("Lamb",R.drawable.ing_icon,"500g"),
         Ingredient("Rice",R.drawable.ing_icon,"1000g"),
         Ingredient("Carrot",R.drawable.ing_icon,"400g"),

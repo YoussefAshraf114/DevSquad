@@ -11,7 +11,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="topic">How to prepare Andijan pilaf</string>
+    <string name="preparation_time">Preparation time / 60 minute</string>
+    <string name="ingredient_name">ingredient name</string>
+    <string name="quantity">500g</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_up_header">Sign up</string>
     <string name="sign_up_subtitle">Enter your information</string>
