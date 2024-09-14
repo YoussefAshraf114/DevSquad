@@ -1,21 +1,20 @@
 package com.example.devsquad.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.devsquad.R
 import com.example.devsquad.databinding.FragmentHomeBinding
+import com.example.devsquad.domain.entity.Recipe
 import com.example.devsquad.presentation.adapters.CategoryAdapter
 import com.example.devsquad.presentation.adapters.RecipeAdapter
 import com.example.devsquad.presentation.viewmodels.HomeViewModel
-import com.example.devsquad.R
-import com.example.devsquad.domain.usecases.GetRecipesByCategoryUseCase
-import com.example.devsquad.data.repo.RecipeRepoImpl
-import com.example.devsquad.presentation.DetailsFragment
 
 class HomeFragment : Fragment() {
 
@@ -75,19 +74,20 @@ class HomeFragment : Fragment() {
                     setRecipes(it)
                 }
 
-//                onItemClick = {
-//                    val recipeById = viewModel.getRecipeById(it.idMeal)
-//                    if (recipeById != null) {
-//                        val bundle = Bundle()
-//                        bundle.putParcelable("recipe", recipeById.toRecipe())
-//                        val detailsFragment = DetailsFragment()
-//                        detailsFragment.arguments = bundle
-//                        parentFragmentManager.beginTransaction()
-//                            .replace(R.id.fragment_container, detailsFragment)
-//                            .addToBackStack(null)
-//                    }
-//                }
+                onItemClick = {
+                    onRecipeClick(it)
+                }
             }
         }
+
+    }
+
+    private fun onRecipeClick(recipe: Recipe) {
+        val bundle = Bundle().apply {
+            putSerializable("recipe", recipe)
+        }
+        val navController = findNavController()
+        navController.navigate(R.id.recipeDetailsFragment, bundle)
+        Log.d("HomeFragment", "Recipe clicked: ${recipe}")
     }
 }

@@ -17,7 +17,11 @@ import com.example.devsquad.domain.entity.Recipe
 import com.example.devsquad.domain.repo.CategoryRepo
 import com.example.devsquad.domain.repo.RecipeRepo
 
-class RecipeRepoImpl(private val localDataSource: LocalRecipesImpl = LocalRecipesImpl(), private val remoteDataSource: RemoteRecipesImpl = RemoteRecipesImpl(), private val mockDataSource: MockRecipes = MockRecipes()): RecipeRepo, CategoryRepo {
+class RecipeRepoImpl(
+    private val localDataSource: LocalRecipesImpl = LocalRecipesImpl(),
+    private val remoteDataSource: RemoteRecipesImpl = RemoteRecipesImpl(),
+    private val mockDataSource: MockRecipes = MockRecipes(),
+) : RecipeRepo, CategoryRepo {
     override suspend fun getRecipesByCategory(category: String, context: Context): List<Recipe> {
         return if (isInternetAvailable(context)) {
             val recipes = remoteDataSource.getRecipesByCategory(category).toRecipeList()
@@ -29,7 +33,7 @@ class RecipeRepoImpl(private val localDataSource: LocalRecipesImpl = LocalRecipe
                 val mockRecipes = mockDataSource.getAllRecipes()
                 localDataSource.insertRecipes(mockRecipes)
                 mockRecipes
-            }else {
+            } else {
                 localDataSource.getRecipesByCategory(category).toRecipeList()
             }
         }
@@ -80,6 +84,7 @@ class RecipeRepoImpl(private val localDataSource: LocalRecipesImpl = LocalRecipe
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
             }
+
             else -> {
                 val activeNetworkInfo = connectivityManager.activeNetworkInfo
                 activeNetworkInfo != null && activeNetworkInfo.isConnected

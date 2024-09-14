@@ -6,5 +6,8 @@ import com.example.devsquad.domain.entity.Recipe
 
 interface RecipeRepo {
     suspend fun getRecipeById(id: String, context: Context = applicationContext): Recipe
-    suspend fun getRecipesByCategory(category: String, context: Context = applicationContext): List<Recipe>
+    suspend fun getRecipesByCategory(
+        category: String,
+        context: Context = applicationContext,
+    ): List<Recipe>
 }

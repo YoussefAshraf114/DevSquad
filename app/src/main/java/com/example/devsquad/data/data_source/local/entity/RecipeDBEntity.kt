@@ -3,7 +3,6 @@ package com.example.devsquad.data.data_source.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 
 @Entity(tableName = "recipes")
 data class RecipeDBEntity(

@@ -2,7 +2,6 @@ package com.example.devsquad.data.data_source.remote
 
 import com.example.devsquad.data.data_source.remote.mapper.toRecipe
 import com.example.devsquad.data.data_source.remote.model.CategoryFromResponse
-import com.example.devsquad.data.data_source.remote.model.RecipeById
 import com.example.devsquad.data.data_source.remote.model.RecipeFromResponse
 import com.example.devsquad.domain.entity.Recipe
 import com.squareup.moshi.Moshi
@@ -25,12 +24,12 @@ class RemoteRecipesImpl {
         }
     }
 
-   suspend fun getRecipesByCategory(category: String): List<RecipeFromResponse> {
+    suspend fun getRecipesByCategory(category: String): List<RecipeFromResponse> {
         val retrofit = getRetrofitInstance()
         val service = retrofit.create(RecipeService::class.java)
         val response = service.getRecipesByCategory(category)
         return response.recipes
-   }
+    }
 
     suspend fun getRecipeById(id: String): Recipe {
         val retrofit = getRetrofitInstance()
@@ -45,4 +44,6 @@ class RemoteRecipesImpl {
         val response = service.getCategories()
         return response.categories
     }
+
+
 }

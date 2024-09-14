@@ -14,5 +14,5 @@ data class CategoryDBEntity(
     @ColumnInfo(name = "strCategoryThumb")
     val image: String,
     @ColumnInfo(name = "strCategoryDescription")
-    val description: String
+    val description: String,
 )

@@ -25,13 +25,13 @@ class IngredientsAdapter(private val ingredients: List<Ingredient>) :
 
     class IngredientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ingredientName: TextView = itemView.findViewById(R.id.ing_name)
-        private val ingredientIcon:ImageView=itemView.findViewById(R.id.ing_icon)
-        private val ingredientQuantity:TextView=itemView.findViewById(R.id.ing_quantity)
+        private val ingredientIcon: ImageView = itemView.findViewById(R.id.ing_icon)
+        private val ingredientQuantity: TextView = itemView.findViewById(R.id.ing_quantity)
 
         fun bind(ingredient: Ingredient) {
             ingredientName.text = ingredient.name
             ingredientIcon.setImageResource(ingredient.icon)
-            ingredientQuantity.text=ingredient.quantity
+            ingredientQuantity.text = ingredient.quantity
         }
     }
 }

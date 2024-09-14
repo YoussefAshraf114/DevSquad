@@ -19,6 +19,9 @@ interface RecipeService {
     suspend fun getRandomRecipe(): RecipeById
 
     @GET("search.php")
+    suspend fun searchRecipesByName(@Query("s") query: String): RecipeResponse
+
+    @GET("search.php")
     suspend fun searchRecipesByFirstLetter(@Query("f") query: String): RecipeResponse
 
     @GET("categories.php")

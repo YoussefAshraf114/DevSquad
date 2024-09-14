@@ -1,9 +1,9 @@
 package com.example.devsquad.data.data_source.local.dao
 
 import androidx.room.Dao
-import androidx.room.Query
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.devsquad.data.data_source.local.entity.CategoryDBEntity
 
 @Dao

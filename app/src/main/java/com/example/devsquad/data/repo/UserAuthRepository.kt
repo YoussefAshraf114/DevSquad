@@ -1,4 +1,5 @@
 package com.example.devsquad.data.repo
+
 import com.example.devsquad.domain.model.User
 
 interface UserAuthRepository {

@@ -2,18 +2,15 @@ package com.example.devsquad.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.devsquad.R
 import com.example.devsquad.domain.entity.Category
 
-class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
     val data: MutableList<Category> = mutableListOf()
 
     var onItemClick: ((Category) -> Unit)? = null
@@ -23,7 +20,8 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         parent: ViewGroup,
         viewType: Int,
     ): CategoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_card, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.category_card, parent, false)
         return CategoryViewHolder(view)
     }
 
@@ -40,11 +38,10 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
             selectedPosition = holder.adapterPosition
             notifyItemChanged(selectedPosition)
         }
-        if (position == selectedPosition){
+        if (position == selectedPosition) {
             holder.title.setTextColor(Color.GREEN)
-        }else{
+        } else {
             holder.title.setTextColor(Color.BLACK)
-
         }
 
     }
@@ -53,13 +50,14 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         return data.size
     }
 
-    class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.category_name)
         fun bind(category: Category) {
             title.text = category.categoryName
         }
 
     }
+
     @SuppressLint("NotifyDataSetChanged")
     fun setCategories(categories: List<Category>) {
         data.clear()

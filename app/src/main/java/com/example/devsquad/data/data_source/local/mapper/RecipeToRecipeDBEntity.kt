@@ -19,7 +19,7 @@ fun Recipe.toRecipeDBEntity(): RecipeDBEntity {
         ingredient5 = ingredient5,
         ingredient6 = ingredient6,
         ingredient7 = ingredient7,
-        ingredient8= ingredient8,
+        ingredient8 = ingredient8,
         ingredient9 = ingredient9,
         ingredient10 = ingredient10,
         ingredient11 = ingredient11,
@@ -29,7 +29,7 @@ fun Recipe.toRecipeDBEntity(): RecipeDBEntity {
         ingredient15 = ingredient15,
         ingredient16 = ingredient16,
         ingredient17 = ingredient17,
-        ingredient18= ingredient18,
+        ingredient18 = ingredient18,
         ingredient19 = ingredient19,
         ingredient20 = ingredient20,
         measure1 = measure1,
@@ -60,7 +60,6 @@ fun List<Recipe>.toRecipeDBEntityList(): List<RecipeDBEntity> {
 }
 
 
-
 fun RecipeDBEntity.toRecipe(): Recipe {
     return Recipe(
         idMeal = idMeal,
@@ -75,7 +74,7 @@ fun RecipeDBEntity.toRecipe(): Recipe {
         ingredient5 = ingredient5,
         ingredient6 = ingredient6,
         ingredient7 = ingredient7,
-        ingredient8= ingredient8,
+        ingredient8 = ingredient8,
         ingredient9 = ingredient9,
         ingredient10 = ingredient10,
         ingredient11 = ingredient11,
@@ -85,7 +84,7 @@ fun RecipeDBEntity.toRecipe(): Recipe {
         ingredient15 = ingredient15,
         ingredient16 = ingredient16,
         ingredient17 = ingredient17,
-        ingredient18= ingredient18,
+        ingredient18 = ingredient18,
         ingredient19 = ingredient19,
         ingredient20 = ingredient20,
         measure1 = measure1,

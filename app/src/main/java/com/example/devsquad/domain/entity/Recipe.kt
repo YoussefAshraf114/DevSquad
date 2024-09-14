@@ -1,7 +1,6 @@
 package com.example.devsquad.domain.entity
 
-import android.os.Parcel
-import android.os.Parcelable
+import java.io.Serializable
 
 data class Recipe(
     val idMeal: String,
@@ -48,5 +47,5 @@ data class Recipe(
     val measure17: String?,
     val measure18: String?,
     val measure19: String?,
-    val measure20: String?
-)
+    val measure20: String?,
+) : Serializable

@@ -20,7 +20,7 @@ fun RecipeById.toRecipe(): Recipe {
         ingredient5 = ingredient5,
         ingredient6 = ingredient6,
         ingredient7 = ingredient7,
-        ingredient8= ingredient8,
+        ingredient8 = ingredient8,
         ingredient9 = ingredient9,
         ingredient10 = ingredient10,
         ingredient11 = ingredient11,
@@ -30,7 +30,7 @@ fun RecipeById.toRecipe(): Recipe {
         ingredient15 = ingredient15,
         ingredient16 = ingredient16,
         ingredient17 = ingredient17,
-        ingredient18= ingredient18,
+        ingredient18 = ingredient18,
         ingredient19 = ingredient19,
         ingredient20 = ingredient20,
         measure1 = measure1,
@@ -78,7 +78,7 @@ fun RecipeFromResponse.toRecipe(): Recipe {
         ingredient5 = "ingredient5",
         ingredient6 = "ingredient6",
         ingredient7 = "ingredient7",
-        ingredient8= "ingredient8",
+        ingredient8 = "ingredient8",
         ingredient9 = "ingredient9",
         ingredient10 = "ingredient10",
         ingredient11 = "ingredient11",
@@ -88,7 +88,7 @@ fun RecipeFromResponse.toRecipe(): Recipe {
         ingredient15 = "ingredient15",
         ingredient16 = "ingredient16",
         ingredient17 = "ingredient17",
-        ingredient18= "ingredient18",
+        ingredient18 = "ingredient18",
         ingredient19 = "ingredient19",
         ingredient20 = "ingredient20",
         measure1 = "measure1",
@@ -114,7 +114,7 @@ fun RecipeFromResponse.toRecipe(): Recipe {
     )
 }
 
-fun List<RecipeFromResponse>.toRecipeList(): List<Recipe>  {
+fun List<RecipeFromResponse>.toRecipeList(): List<Recipe> {
     val recipeList = mutableListOf<Recipe>()
     this.forEach {
         recipeList.add(it.toRecipe())
