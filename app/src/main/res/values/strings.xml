@@ -37,4 +37,6 @@
     <string name="night_mode">Night Mode</string>
     <string name="tap_for_details">Tap for Details</string>
     <string name="log_out">Log out</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="like">Like</string>
 </resources>

@@ -72,6 +72,7 @@ class LoginFragment : Fragment() ,View.OnFocusChangeListener{
         savedInstanceState: Bundle?
     ): View {
 
+
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.signUpNav.isClickable = true
@@ -87,6 +88,7 @@ class LoginFragment : Fragment() ,View.OnFocusChangeListener{
 
         binding.login.setOnClickListener{
             val user = User(binding.emailField.text.toString(), binding.passwordField.text.toString())
+            isValidPassword()
             if (isValidEmail() && isValidPassword()){
                 authViewModel.login(user)
                 if (authViewModel.isAuth.value == true){
@@ -116,9 +118,6 @@ class LoginFragment : Fragment() ,View.OnFocusChangeListener{
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -16,10 +16,8 @@ class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase = Get
     private val _categoryList = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = _categoryList
 
-    val _recipes = MutableLiveData<List<Recipe>>()
+    private val _recipes = MutableLiveData<List<Recipe>>()
     val recipes: LiveData<List<Recipe>> = _recipes
-
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -52,7 +50,7 @@ class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase = Get
                     allRecipes.addAll(getRecipes())
                 }
                 _recipes.value = allRecipes
-                _isLoading.value = true
+                _isLoading.value = true // ??! what the hell is the purpose of that bro?!
                 return@launch
             } else {
                 _isLoading.value = true

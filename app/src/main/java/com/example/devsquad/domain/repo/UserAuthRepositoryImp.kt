@@ -42,13 +42,15 @@ class UserAuthRepositoryImp (private val sharedPreferences: SharedPreferences?):
 
     override suspend fun userLogOut(): Boolean {
         sharedPreferences?.edit()?.apply {
-            putBoolean("isAuth", true)
+            putBoolean("isAuth", false)
             apply()
         }
+        Log.i("After Logout","${ sharedPreferences?.getBoolean("isAuth",false) ?: false}")
         return true
     }
 
     override suspend fun checkAuthorization(): Boolean {
+        Log.i("checkAuthorization","${ sharedPreferences?.getBoolean("isAuth",false) ?: false}")
         return sharedPreferences?.getBoolean("isAuth",false) ?: false
     }
 

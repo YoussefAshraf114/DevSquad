@@ -1,5 +1,8 @@
 package com.example.devsquad.presentation.adapters
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +17,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
     val data: MutableList<Category> = mutableListOf()
 
     var onItemClick: ((Category) -> Unit)? = null
+    var selectedPosition: Int = 0
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,13 +27,24 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         return CategoryViewHolder(view)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(
         holder: CategoryViewHolder,
         position: Int,
     ) {
         holder.bind(data[position])
+
         holder.itemView.setOnClickListener {
+            notifyItemChanged(selectedPosition)
             onItemClick?.invoke(data[position])
+            selectedPosition = holder.adapterPosition
+            notifyItemChanged(selectedPosition)
+        }
+        if (position == selectedPosition){
+            holder.title.setTextColor(Color.GREEN)
+        }else{
+            holder.title.setTextColor(Color.BLACK)
+
         }
 
     }
@@ -45,6 +60,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         }
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun setCategories(categories: List<Category>) {
         data.clear()
         data.add(Category("0", "All Recipes", "", ""))
