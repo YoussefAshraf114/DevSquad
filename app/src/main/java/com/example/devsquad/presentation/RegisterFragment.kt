@@ -127,7 +127,7 @@ class RegisterFragment : Fragment(), View.OnFocusChangeListener{
         binding.registerNext.setOnClickListener{
             isValidEmail()
             isValidPassword()
-            isValidPasswordConfirmPassword()
+            isValidConfirmPassword()
             val email = binding.emailField.text.toString()
             val password = binding.passwordField.text.toString()
             if (isValidEmail() && isValidPassword() && isValidPasswordConfirmPassword()){

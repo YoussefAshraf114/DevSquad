@@ -2,6 +2,7 @@ package com.example.devsquad
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 
 class MyApp: Application() {
     override fun onCreate() {
@@ -13,6 +14,9 @@ class MyApp: Application() {
         private fun setContext(myApp: MyApp) {
             applicationContext = myApp
         }
+        fun getSharedPref() : SharedPreferences{
+            return applicationContext.getSharedPreferences("SharedPref", MODE_PRIVATE)
 
+        }
     }
 }

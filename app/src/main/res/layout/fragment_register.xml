@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="@string/next"
-            app:background="@color/green_500"
+            android:backgroundTint="@color/green_500"
             android:layout_marginTop="40dp"
             android:id="@+id/register_next"/>
 

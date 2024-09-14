@@ -93,7 +93,7 @@
             android:textAllCaps="false"
             android:text="@string/login"
             android:layout_marginTop="40dp"
-            app:background="@color/green_500"
+            android:backgroundTint="@color/green_500"
             android:id="@+id/login"/>
 
         <LinearLayout
