@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.devsquad.MyApp
 import com.example.devsquad.R
+import com.example.devsquad.data.repo.RecipeRepoImpl
 import com.example.devsquad.databinding.FragmentHomeBinding
 import com.example.devsquad.domain.entity.Recipe
+import com.example.devsquad.domain.usecases.GetRecipeByIdUseCase
 import com.example.devsquad.presentation.adapters.CategoryAdapter
 import com.example.devsquad.presentation.adapters.RecipeAdapter
 import com.example.devsquad.presentation.viewmodels.HomeViewModel
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -75,16 +80,20 @@ class HomeFragment : Fragment() {
                 }
 
                 onItemClick = {
-                    onRecipeClick(it)
+                    lifecycleScope.launch {
+                        onRecipeClick(it)
+                    }
                 }
             }
         }
 
     }
 
-    private fun onRecipeClick(recipe: Recipe) {
+    suspend fun onRecipeClick(recipe: Recipe) {
+        val getRecipeByIdUseCase = GetRecipeByIdUseCase(RecipeRepoImpl(), recipe.idMeal)
+        val recipeById = getRecipeByIdUseCase()
         val bundle = Bundle().apply {
-            putSerializable("recipe", recipe)
+            putSerializable("recipe", recipeById)
         }
         val navController = findNavController()
         navController.navigate(R.id.recipeDetailsFragment, bundle)
