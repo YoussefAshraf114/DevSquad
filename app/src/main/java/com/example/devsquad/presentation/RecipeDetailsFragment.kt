@@ -7,20 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.VideoView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.devsquad.R
 import com.example.devsquad.domain.entity.Recipe
+import kotlin.reflect.jvm.internal.impl.load.java.lazy.descriptors.DeclaredMemberIndex.Empty
 
 class RecipeDetailsFragment : Fragment() {
 
-    private lateinit var videoView: VideoView
     private lateinit var ingredientsRecyclerView: RecyclerView
-    private lateinit var back_btn: ImageButton
-    private lateinit var start_btn: ImageButton
-    private lateinit var pause_btn: ImageButton
     private lateinit var ingredientsAdapter: IngredientsAdapter
 
 
@@ -29,20 +29,12 @@ class RecipeDetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_details, container, false)
-        back_btn = view.findViewById(R.id.back_btn)
-        start_btn = view.findViewById(R.id.start_btn)
-        pause_btn = view.findViewById(R.id.pause_btn)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recipe = arguments?.getSerializable("recipe") as Recipe
-
-        videoView = view.findViewById(R.id.videoView)
-        val videoUri =
-            Uri.parse("android.resource://" + requireContext().packageName + "/" + R.raw.recipe_video)
-        videoView.setVideoURI(videoUri)
 
 
         val unFilteredList = listOf(
@@ -69,7 +61,7 @@ class RecipeDetailsFragment : Fragment() {
             )
 
         val filteredList=unFilteredList.filter {
-            it.name!=null && it.quantity!=null
+            it.name!="" && it.quantity!="" && it.name!=null && it.quantity!=null
         }
         val ingredientsList =filteredList
 
@@ -77,19 +69,7 @@ class RecipeDetailsFragment : Fragment() {
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(context)
         ingredientsAdapter = IngredientsAdapter(ingredientsList)
         ingredientsRecyclerView.adapter = ingredientsAdapter
-        back_btn.setOnClickListener {
-            onDestroy()
-        }
-        start_btn.setOnClickListener {
-            pause_btn.visibility = View.VISIBLE
-            start_btn.visibility = View.INVISIBLE
-            videoView.start()
-        }
-        pause_btn.setOnClickListener {
-            start_btn.visibility = View.VISIBLE
-            pause_btn.visibility = View.INVISIBLE
-            videoView.pause()
-        }
+
 
         Log.d("recipeDetailsFragment", "Recipe received: ${recipe}")
     }
