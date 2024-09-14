@@ -22,13 +22,7 @@ class RecipeDetailsFragment : Fragment() {
     private lateinit var start_btn: ImageButton
     private lateinit var pause_btn: ImageButton
     private lateinit var ingredientsAdapter: IngredientsAdapter
-    private val ingredientsList = listOf(
-        Ingredient("Sheep's butt", R.drawable.ing_icon, "500g"),
-        Ingredient("Lamb", R.drawable.ing_icon, "500g"),
-        Ingredient("Rice", R.drawable.ing_icon, "1000g"),
-        Ingredient("Carrot", R.drawable.ing_icon, "400g"),
-        Ingredient("Onion", R.drawable.ing_icon, "300g")
-    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,13 +37,43 @@ class RecipeDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recipe = arguments?.getSerializable("recipe") as Recipe
+
         videoView = view.findViewById(R.id.videoView)
         val videoUri =
             Uri.parse("android.resource://" + requireContext().packageName + "/" + R.raw.recipe_video)
         videoView.setVideoURI(videoUri)
 
 
-        ingredientsRecyclerView = view.findViewById(R.id.ingredientsRecyclerView)
+        val unFilteredList = listOf(
+            Ingredient(recipe.ingredient1, R.drawable.ing_icon, recipe.measure1),
+            Ingredient(recipe.ingredient2, R.drawable.ing_icon, recipe.measure2),
+            Ingredient(recipe.ingredient3, R.drawable.ing_icon, recipe.measure3),
+            Ingredient(recipe.ingredient4, R.drawable.ing_icon, recipe.measure4),
+            Ingredient(recipe.ingredient5, R.drawable.ing_icon, recipe.measure5),
+            Ingredient(recipe.ingredient6, R.drawable.ing_icon, recipe.measure6),
+            Ingredient(recipe.ingredient7, R.drawable.ing_icon, recipe.measure7),
+            Ingredient(recipe.ingredient8, R.drawable.ing_icon, recipe.measure8),
+            Ingredient(recipe.ingredient9, R.drawable.ing_icon, recipe.measure9),
+            Ingredient(recipe.ingredient10, R.drawable.ing_icon, recipe.measure10),
+            Ingredient(recipe.ingredient11, R.drawable.ing_icon, recipe.measure11),
+            Ingredient(recipe.ingredient12, R.drawable.ing_icon, recipe.measure12),
+            Ingredient(recipe.ingredient13, R.drawable.ing_icon, recipe.measure13),
+            Ingredient(recipe.ingredient14, R.drawable.ing_icon, recipe.measure14),
+            Ingredient(recipe.ingredient15, R.drawable.ing_icon, recipe.measure15),
+            Ingredient(recipe.ingredient16, R.drawable.ing_icon, recipe.measure16),
+            Ingredient(recipe.ingredient17, R.drawable.ing_icon, recipe.measure17),
+            Ingredient(recipe.ingredient18, R.drawable.ing_icon, recipe.measure18),
+            Ingredient(recipe.ingredient19, R.drawable.ing_icon, recipe.measure19),
+            Ingredient(recipe.ingredient20, R.drawable.ing_icon, recipe.measure20),
+            )
+
+        val filteredList=unFilteredList.filter {
+            it.name!=null && it.quantity!=null
+        }
+        val ingredientsList =filteredList
+
+            ingredientsRecyclerView = view.findViewById(R.id.ingredientsRecyclerView)
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(context)
         ingredientsAdapter = IngredientsAdapter(ingredientsList)
         ingredientsRecyclerView.adapter = ingredientsAdapter
@@ -67,7 +91,6 @@ class RecipeDetailsFragment : Fragment() {
             videoView.pause()
         }
 
-        val recipe = arguments?.getSerializable("recipe") as Recipe
         Log.d("recipeDetailsFragment", "Recipe received: ${recipe}")
     }
 
