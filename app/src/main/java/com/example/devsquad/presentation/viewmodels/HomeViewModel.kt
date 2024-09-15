@@ -1,5 +1,6 @@
 package com.example.devsquad.presentation.viewmodels
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.example.devsquad.domain.entity.Recipe
 import com.example.devsquad.domain.usecases.GetCategoriesUseCase
 import com.example.devsquad.domain.usecases.GetRecipesByCategoryUseCase
 import kotlinx.coroutines.launch
+import com.example.devsquad.presentation.adapters.CategoryAdapter
 
 class HomeViewModel(
     private val getCategoriesUseCase: GetCategoriesUseCase = GetCategoriesUseCase(
@@ -32,6 +34,9 @@ class HomeViewModel(
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
 
+    val categoryAdapter by lazy {
+        CategoryAdapter()
+    }
     init {
         getCategories()
     }
@@ -86,4 +91,7 @@ class HomeViewModel(
             _searchResults.value = filteredRecipes!!
         }
     }
+
+
+
 }

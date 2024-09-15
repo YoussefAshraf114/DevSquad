@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.devsquad.MyApp
 import com.example.devsquad.R
 import com.example.devsquad.data.repo.RecipeRepoImpl
@@ -31,6 +33,10 @@ class HomeFragment : Fragment() {
         FragmentHomeBinding.inflate(layoutInflater)
     }
 
+    val categoryAdapter by lazy {
+        CategoryAdapter()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +50,7 @@ class HomeFragment : Fragment() {
         val recipeAdapter = RecipeAdapter()
         binding.categoryList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = CategoryAdapter().apply {
+            adapter = categoryAdapter.apply {
                 viewModel.categories.observe(viewLifecycleOwner) {
                     setCategories(it)
                 }
@@ -52,23 +58,10 @@ class HomeFragment : Fragment() {
                 onItemClick = {
                     when (it.categoryName) {
                         "All Recipes" -> viewModel.getRecipesByCategory("All Recipes")
-                        "Beef" -> viewModel.getRecipesByCategory("Beef")
-                        "Breakfast" -> viewModel.getRecipesByCategory("Breakfast")
-                        "Chicken" -> viewModel.getRecipesByCategory("Chicken")
-                        "Dessert" -> viewModel.getRecipesByCategory("Dessert")
-                        "Goat" -> viewModel.getRecipesByCategory("Goat")
-                        "Lamb" -> viewModel.getRecipesByCategory("Lamb")
-                        "Miscellaneous" -> viewModel.getRecipesByCategory("Miscellaneous")
-                        "Pasta" -> viewModel.getRecipesByCategory("Pasta")
-                        "Pork" -> viewModel.getRecipesByCategory("Pork")
-                        "Seafood" -> viewModel.getRecipesByCategory("Seafood")
-                        "Side" -> viewModel.getRecipesByCategory("Side")
-                        "Starter" -> viewModel.getRecipesByCategory("Starter")
-                        "Vegan" -> viewModel.getRecipesByCategory("Vegan")
-                        "Vegetarian" -> viewModel.getRecipesByCategory("Vegetarian")
-                        else -> viewModel.getRecipesByCategory("All Recipes")
+                        else -> viewModel.getRecipesByCategory(it.categoryName)
                     }
                 }
+
             }
         }
 
@@ -87,16 +80,30 @@ class HomeFragment : Fragment() {
             }
         }
 
+        refreshAllRecipes()
+
+        binding.searchView.setOnClickListener{
+            Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun refreshAllRecipes() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getRecipesByCategory("All Recipes")
+            categoryAdapter.notifyItemChanged(categoryAdapter.selectedPosition)
+            categoryAdapter.selectedPosition = 0
+            categoryAdapter.notifyItemChanged(0)
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     suspend fun onRecipeClick(recipe: Recipe) {
-        val getRecipeByIdUseCase = GetRecipeByIdUseCase(RecipeRepoImpl(), recipe.idMeal)
-        val recipeById = getRecipeByIdUseCase()
         val bundle = Bundle().apply {
-            putSerializable("recipe", recipeById)
+            putString("id", recipe.idMeal)
         }
         val navController = findNavController()
         navController.navigate(R.id.recipeDetailsFragment, bundle)
         Log.d("HomeFragment", "Recipe clicked: ${recipe}")
+        Log.d("HomeFragment", "Id clicked: ${recipe.idMeal}")
     }
 }

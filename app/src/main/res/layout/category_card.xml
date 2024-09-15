@@ -2,15 +2,15 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card"
+    android:id="@+id/category_card_view"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/home_margin"
     android:layout_marginVertical="5dp"
-    android:layout_marginEnd="@dimen/home_margin"
     android:clickable="true"
-    android:elevation="4dp"
     android:focusable="true"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="4dp">
 
     <TextView
         android:id="@+id/category_name"
@@ -21,6 +21,7 @@
         android:gravity="center"
         android:padding="10sp"
         android:textSize="16sp"
-        tools:text="Lunch" />
+        tools:text="Lunch"
+        />
 
 </androidx.cardview.widget.CardView>

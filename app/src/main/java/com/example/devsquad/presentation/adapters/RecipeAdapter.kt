@@ -3,6 +3,7 @@ package com.example.devsquad.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,6 +32,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(recipes[position])
         }
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recipes_anim))
     }
 
     override fun getItemCount(): Int {
