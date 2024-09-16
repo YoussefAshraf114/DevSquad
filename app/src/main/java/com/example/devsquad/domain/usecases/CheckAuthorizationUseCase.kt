@@ -1,9 +1,9 @@
 package com.example.devsquad.domain.usecases
 
-import com.example.devsquad.data.repo.UserAuthRepository
+import com.example.devsquad.domain.repo.UserAuthRepo
 
 
-class CheckAuthorizationUseCase(private val repository: UserAuthRepository) {
+class CheckAuthorizationUseCase(private val repository: UserAuthRepo) {
     suspend fun execute(): Boolean {
         return repository.checkAuthorization()
     }

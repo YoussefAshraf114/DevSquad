@@ -3,64 +3,33 @@ package com.example.devsquad.presentation
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Patterns
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.distinctUntilChanged
+import androidx.navigation.fragment.findNavController
 import com.example.devsquad.R
+import com.example.devsquad.data.data_source.local.entity.UserDBEntity
 import com.example.devsquad.databinding.FragmentLoginBinding
-import com.example.devsquad.domain.model.User
-import com.example.devsquad.domain.repo.UserAuthRepositoryImp
-import com.example.devsquad.domain.usecases.LoginUseCase
-import com.example.devsquad.presentation.viewmodels.AuthViewModel
+import com.example.devsquad.presentation.viewmodels.LoginViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class LoginFragment : Fragment(), View.OnFocusChangeListener {
+class LoginFragment : Fragment(){
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private fun isValidEmail(): Boolean {
-        val email = binding.emailField.text.toString()
-        var errorMsg: String? = null
-        val layout = binding.emailLayout
-        if (email.isEmpty()) {
-            errorMsg = "Email is required!"
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorMsg = "Invalid email!"
-        }
-        if (errorMsg != null) {
-            layout.apply {
-                binding.emailField.setTextColor(Color.RED)
-                isErrorEnabled = true
-                error = errorMsg
-            }
-        }
-        return errorMsg == null
-    }
 
-    private fun isValidPassword(): Boolean {
-        val password = binding.passwordField.text.toString()
-        var errorMsg: String? = null
-        val layout = binding.passwordLayout
-
-        if (password.isEmpty()) {
-            errorMsg = "Password is required!"
-        } else if (password.length < 6) {
-            errorMsg = "Password length must be greater than 6!"
-        }
-        if (errorMsg != null) {
-            layout.apply {
-                binding.passwordField.setTextColor(Color.RED)
-                isErrorEnabled = true
-                error = errorMsg
-            }
-        }
-        return errorMsg == null
+    private val loginViewModel: LoginViewModel by lazy {
+        ViewModelProvider(requireActivity())[LoginViewModel::class.java]
     }
 
 
@@ -69,88 +38,118 @@ class LoginFragment : Fragment(), View.OnFocusChangeListener {
         savedInstanceState: Bundle?,
     ): View {
 
-
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-
         binding.signUpNav.isClickable = true
-        binding.emailField.onFocusChangeListener = this
-        binding.passwordField.onFocusChangeListener = this
 
-        val sharedPreferences = context?.getSharedPreferences("SharedPref", MODE_PRIVATE)
-
-        val authViewModel: AuthViewModel by lazy {
-            AuthViewModel(
-                loginUseCase = LoginUseCase(UserAuthRepositoryImp(sharedPreferences))
-            )
-        }
-
-        binding.login.setOnClickListener {
-            val user =
-                User(binding.emailField.text.toString(), binding.passwordField.text.toString())
-            isValidPassword()
-            if (isValidEmail() && isValidPassword()) {
-                authViewModel.login(user)
-                if (authViewModel.isAuth.value == true) {
-                    val intent = Intent(requireActivity(), RecipeActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                } else {
-                    binding.passwordLayout.apply {
-                        isErrorEnabled = true
-                        error = "Wrong email or password!"
-                    }
+        binding.emailField.let {
+            it.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                 }
 
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val email = it.text.toString()
+                    binding.emailLayout.apply {
+                        val errorMsg = loginViewModel.isValidEmail(email)
+                        if (errorMsg != null) {
+                            binding.emailField.setTextColor(Color.RED)
+                            isErrorEnabled = true
+                            error = errorMsg
+                        } else {
+                            binding.emailField.setTextColor(Color.BLACK)
+                            isErrorEnabled = false
+                        }
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+
+        binding.passwordField.let {
+            it.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val password = it.text.toString()
+                    val passwordError = loginViewModel.isValidPassword(password)
+
+                    passwordError?.let { passWordError ->
+                        binding.passwordLayout.apply {
+                            binding.passwordField.setTextColor(Color.RED)
+                            isErrorEnabled = true
+                            error = passWordError
+                        }
+                    }
+                    if (passwordError == null) {
+                        it.setTextColor(Color.BLACK)
+                        binding.passwordLayout.apply {
+                            isErrorEnabled = false
+                        }
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+        binding.login.setOnClickListener {
+            val email = binding.emailField.text.toString()
+            val password = binding.passwordField.text.toString()
+
+            val emailError = loginViewModel.isValidEmail(email)
+            val passwordError = loginViewModel.isValidPassword(password)
+
+            var validData = true
+
+            binding.emailLayout.apply {
+                emailError?.let {
+                    binding.emailField.setTextColor(Color.RED)
+                    isErrorEnabled = true
+                    error = it
+                    validData = false
+                }
+            }
+            binding.passwordLayout.apply {
+                passwordError?.let {
+                    binding.passwordField.setTextColor(Color.RED)
+                    isErrorEnabled = true
+                    error = it
+                    validData = false
+                }
+            }
+            if (validData) {
+                val user = UserDBEntity(email = email, password = password)
+                loginViewModel.login(user)
+
+                loginViewModel.errorMsg.observe(viewLifecycleOwner, Observer { errorMsg ->
+                    Log.i("Testing","2- observe $errorMsg")
+                if (errorMsg != null){
+                    binding.passwordLayout.apply {
+                        isErrorEnabled = true
+                        error = errorMsg
+                    }
+                }})
+                if (loginViewModel.isAuth.value == true){
+                        val intent = Intent(requireActivity(), RecipeActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                }
             }
         }
-
-        binding.signUpNav.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .add(
-                    R.id.fragment_container,
-                    RegisterFragment(),
-                    "registerFragment"
-                )
-                .addToBackStack(null)
-                .commit()
-        }
-
-        return binding.root
+    binding.signUpNav.setOnClickListener {
+        findNavController().navigate(R.id.action_LoginFragment_to_SignUpFragment)
     }
-
-
+    return binding.root
+}
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-    override fun onFocusChange(view: View?, hasFocus: Boolean) {
-
-        if (view != null) {
-
-            when (view.id) {
-                R.id.email_field -> {
-                    if (hasFocus) {
-                        binding.emailField.setTextColor(Color.BLACK)
-                        binding.emailLayout.isErrorEnabled = false
-                    } else {
-                        isValidEmail()
-                    }
-                }
-
-                R.id.password_field -> {
-                    if (hasFocus) {
-                        binding.passwordField.setTextColor(Color.BLACK)
-                        binding.passwordLayout.isErrorEnabled = false
-                    } else {
-                        isValidPassword()
-                    }
-                }
-
-            }
-        }
-    }
-
-
 }

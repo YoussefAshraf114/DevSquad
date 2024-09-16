@@ -1,10 +1,15 @@
 package com.example.devsquad.domain.usecases
 
-import com.example.devsquad.data.repo.UserAuthRepository
-import com.example.devsquad.domain.model.User
+import com.example.devsquad.data.data_source.local.entity.UserDBEntity
+import com.example.devsquad.domain.repo.UserAuthRepo
 
-class SignUpUseCase(private val repository: UserAuthRepository) {
-    suspend fun execute(user: User) {
-        repository.userSignUp(user)
+class SignUpUseCase(private val repository: UserAuthRepo) {
+    suspend fun execute(user: UserDBEntity) : String? {
+        try{
+            repository.userSignUp(user)
+            return null
+        }catch (e: Exception){
+            return e.message
+        }
     }
 }

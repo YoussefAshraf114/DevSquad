@@ -6,27 +6,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.devsquad.MyApp
 import com.example.devsquad.domain.model.User
-import com.example.devsquad.domain.repo.UserAuthRepositoryImp
+import com.example.devsquad.data.repo.UserAuthRepoImpl
 import com.example.devsquad.domain.usecases.CheckAuthorizationUseCase
 import com.example.devsquad.domain.usecases.LogOutUseCase
 import com.example.devsquad.domain.usecases.LoginUseCase
 import com.example.devsquad.domain.usecases.SignUpUseCase
 import kotlinx.coroutines.launch
 
-class AuthViewModel(
-    private val loginUseCase: LoginUseCase? = null,
-    private val logOutUseCase: LogOutUseCase = LogOutUseCase(UserAuthRepositoryImp(MyApp.getSharedPref())),
-    private val signUpUseCase: SignUpUseCase = SignUpUseCase(UserAuthRepositoryImp(MyApp.getSharedPref())),
+class CheckAuthViewModel(
+
+    // region remove me when you can!
+    private val logOutUseCase: LogOutUseCase = LogOutUseCase(UserAuthRepoImpl(MyApp.getSharedPref())),
+    // endregion
+
     private val checkAuthorizationUseCase: CheckAuthorizationUseCase = CheckAuthorizationUseCase(
-        UserAuthRepositoryImp(MyApp.getSharedPref())
+        UserAuthRepoImpl(MyApp.getSharedPref())
     ),
 ) : ViewModel() {
 
     private val _isAuth = MutableLiveData(false)
     val isAuth: LiveData<Boolean> get() = _isAuth
 
+    // region (may) remove me
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
+    // endregion
 
     fun checkAuthorization(): Boolean {
         viewModelScope.launch {
@@ -39,27 +43,9 @@ class AuthViewModel(
         return isAuth.value ?: false
     }
 
-    fun signUp(user: User) {
-        viewModelScope.launch {
-            try {
-                signUpUseCase.execute(user)
-            } catch (e: Exception) {
-                _isAuth.value = false
-            }
-        }
-    }
+    // region remove me to my right place
 
-    fun login(user: User) {
-        viewModelScope.launch {
-            try {
-                _isAuth.value = loginUseCase?.execute(user)
-            } catch (e: Exception) {
-                _isAuth.value = false
-            }
-        }
-    }
-
-    fun logout() {
+    fun logout() { // i have to be on the about viewModel
         viewModelScope.launch {
             try {
                 logOutUseCase.execute()
@@ -69,4 +55,5 @@ class AuthViewModel(
             }
         }
     }
+    // endregion
 }
