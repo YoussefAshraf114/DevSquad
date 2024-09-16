@@ -30,27 +30,32 @@
         android:iconifiedByDefault="false"
         android:queryBackground="@null"
         android:queryHint="@string/search_for_foods"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_list"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10sp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/search_view"
-        app:layout_constraintStart_toStartOf="@id/search_view"
         app:layout_constraintTop_toBottomOf="@id/search_view" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipe_list"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16sp"
-        android:layout_marginEnd="@dimen/home_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/category_list"
-        app:layout_constraintTop_toBottomOf="@id/category_list" />
+        app:layout_constraintEnd_toEndOf="@id/search_view"
+        app:layout_constraintStart_toStartOf="@id/search_view"
+        app:layout_constraintTop_toBottomOf="@id/category_list"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recipe_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
