@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    suspend fun onRecipeClick(recipe: Recipe) {
+    fun onRecipeClick(recipe: Recipe) {
         val bundle = Bundle().apply {
             putString("id", recipe.idMeal)
         }
