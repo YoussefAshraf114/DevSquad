@@ -9,7 +9,9 @@ import com.example.devsquad.MyApp
 import com.example.devsquad.data.data_source.local.entity.UserDBEntity
 import com.example.devsquad.data.repo.UserAuthRepoImpl
 import com.example.devsquad.domain.usecases.SignUpUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignUpViewModel(
     private val signUpUseCase: SignUpUseCase = SignUpUseCase(UserAuthRepoImpl(MyApp.getSharedPref()))
@@ -17,11 +19,19 @@ class SignUpViewModel(
     private val _error = MutableLiveData<String?>(null)
     val error: LiveData<String?> get() = _error
 
+    private val _isAuth = MutableLiveData(false)
+    val isAuth: LiveData<Boolean> get() = _isAuth
+
     fun signUp(user: UserDBEntity) {
         viewModelScope.launch {
             try {
-                _error.value = signUpUseCase.execute(user)
-            } catch (_: Exception) {}
+                val result = withContext(Dispatchers.IO) {
+                    signUpUseCase.execute(user)
+                }
+                _isAuth.value = result
+            } catch (_: Exception) {
+                _isAuth.value = false
+            }
         }
         }
 

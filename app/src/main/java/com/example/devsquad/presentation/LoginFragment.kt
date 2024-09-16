@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.devsquad.R
 import com.example.devsquad.data.data_source.local.entity.UserDBEntity
 import com.example.devsquad.databinding.FragmentLoginBinding
+import com.example.devsquad.presentation.viewmodels.CheckAuthViewModel
 import com.example.devsquad.presentation.viewmodels.LoginViewModel
 
 /**
@@ -135,12 +136,14 @@ class LoginFragment : Fragment(){
                         isErrorEnabled = true
                         error = errorMsg
                     }
-                }})
-                if (loginViewModel.isAuth.value == true){
+                } })
+                //if (loginViewModel.isAuth.value == true){
+                loginViewModel.isAuth.observe(viewLifecycleOwner, Observer { isAuth ->
+                    if (isAuth){
                         val intent = Intent(requireActivity(), RecipeActivity::class.java)
                         startActivity(intent)
                         requireActivity().finish()
-                }
+                }})
             }
         }
     binding.signUpNav.setOnClickListener {

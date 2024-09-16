@@ -30,7 +30,7 @@ class UserAuthRepoImpl(private val sharedPreferences: SharedPreferences?,
     override suspend fun userSignUp(user: UserDBEntity): Boolean {
         val email = user.email
         if (userDB.userDao().isEmailExist(email) > 0) {
-            throw Exception("Email is already exist!")
+            return false
         } else {
             userDB.userDao().signUp(user)
             sharedPreferences?.edit()?.apply {

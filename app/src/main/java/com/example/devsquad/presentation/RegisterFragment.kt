@@ -188,23 +188,25 @@ class RegisterFragment : Fragment() {
                     if (errorMsg != null){
                         binding.emailLayout.apply {
                             isErrorEnabled = true
-                            error = errorMsg
+                            error = "Email is already exist!"
                         }
                     }})
 
-                if (signUpViewModel.error.value == null){
+                signUpViewModel.isAuth.observe(viewLifecycleOwner, Observer { isAuth ->
                     // Navigate to RecipeActivity
-                    val intent = Intent(requireActivity(), RecipeActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                }else{
-                    binding.emailLayout.apply {
-                        binding.emailField.setTextColor(Color.RED)
-                        isErrorEnabled = true
-                        error = signUpError
-                        validData = false
+                    if (isAuth) {
+                        val intent = Intent(requireActivity(), RecipeActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    } else {
+                        binding.emailLayout.apply {
+                            binding.emailField.setTextColor(Color.RED)
+                            isErrorEnabled = true
+                            error = "Email is already exist!"
+                            validData = false
+                        }
                     }
-                }
+                })
             }
         }
 
