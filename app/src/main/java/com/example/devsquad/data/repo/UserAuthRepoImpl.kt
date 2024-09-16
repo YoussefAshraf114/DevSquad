@@ -33,6 +33,10 @@ class UserAuthRepoImpl(private val sharedPreferences: SharedPreferences?,
             throw Exception("Email is already exist!")
         } else {
             userDB.userDao().signUp(user)
+            sharedPreferences?.edit()?.apply {
+                putBoolean("isAuth", true)
+                apply()
+            }
             }
             return true
         }
